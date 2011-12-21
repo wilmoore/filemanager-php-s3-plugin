@@ -20,12 +20,12 @@ manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Fi
 Features
 -------------
 
-**1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching. 
-**2. CloudFront**: Use any CloudFront distribution name as your custom domain for serving the managed file. 
-**3. Configurable**: Configure just about any aspect of the plug-in including caching and custom domain. 
-**4. Folder Support**: Supports s3 psuedo folders to similate directory browsing. 
-**5. Debugging**: Set debug mode to (true) which disables caching and provides useful debug messages. 
-**6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket. 
+**1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching.   
+**2. CloudFront**: Use any CloudFront distribution name as your custom domain for serving the managed file.   
+**3. Configurable**: Configure just about any aspect of the plug-in including caching and custom domain.   
+**4. Folder Support**: Supports s3 psuedo folders to similate directory browsing.   
+**5. Debugging**: Set debug mode to (true) which disables caching and provides useful debug messages.   
+**6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
 
 Limitations
