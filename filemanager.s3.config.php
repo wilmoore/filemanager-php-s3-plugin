@@ -77,7 +77,6 @@ $config['aws-cache-expirein'] = '1 minute';
  * Debugging
  ******************************************************************************/
 
-
 /**
  * Enable debug mode (true|false) [default = false]
  * Enabling this will turn on debugging for the following components:

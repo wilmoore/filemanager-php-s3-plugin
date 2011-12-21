@@ -23,7 +23,7 @@ Features
 **1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching.   
 **2. CloudFront**: Use any CloudFront distribution name as your custom domain for serving the managed file.   
 **3. Configurable**: Configure just about any aspect of the plug-in including caching and custom domain.   
-**4. Folder Support**: Supports s3 psuedo folders to similate directory browsing.   
+**4. Folder Support**: Supports s3 pseudo folders to similate directory browsing.   
 **5. Debugging**: Set debug mode to (true) which disables caching and provides useful debug messages.   
 **6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
@@ -222,10 +222,6 @@ Sample Configuration
 
     // Allowed image extensions when type is 'image'
     var imagesExt = ['jpg', 'jpeg', 'gif', 'png'];
-
-
-Alternatives
-------------
 
 
 Changelog
