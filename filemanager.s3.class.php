@@ -18,14 +18,10 @@ require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
  * @license MIT License
  * @author	Wil Moore III <wmoore@net-results.com>
  *
- * @todo    at some point, extend this to allow direct uploads using something similar to: https://github.com/slaskis/s3upload
- * @todo    need to extend cachecore w/ an array adapter so we can test w/ caching on -- also, this would be a good stop-gap if one doesn't have 'apc'
  * @todo    future improvements:
  *          1 - pub/sub events
  *          2 - compose in options/config instances (vs. $config array)
  *          3 - compose in request/parameters object(s) (vs. $_POST, $_GET)
- *          4 - cleaner adapter system (because plugging in s3 vs filesystem shouldn't have beent his much work)
- *          5 - consider caching at the component level (vs. using the caching in AWS SDK)
  */
 class FilemanagerS3 extends Filemanager {
 
@@ -434,9 +430,6 @@ class FilemanagerS3 extends Filemanager {
    * rename file/directory
    *
    * @return string
-   * @todo  need to look into why renaming directory causes object to _not_ look like a directory in AWS console (but looks and functions fine in the filemanager)
-   * @todo  when renaming directory, need to force all child objects to rename as well (should we even allow this?)
-   * @todo  probably need to split out directory and file renaming functionality (two functions)
    */
   public function rename() {
     $oldPath  = $this->sanitizePath($this->get['old']);
@@ -445,7 +438,7 @@ class FilemanagerS3 extends Filemanager {
 
     $oldPath .= ($isDir) ? '/' : '';
 
-    $contents = $isDir
+    $contents = ($isDir)
               ? $this->s3->get_object_list($this->bucket, array('prefix' => $oldPath))
               : array();
 
@@ -460,14 +453,18 @@ class FilemanagerS3 extends Filemanager {
     $newFile  = $this->get['new'];
     $newPath  = join('/', array($dirName, $newFile));
 
-    $copyResponse = $this->s3->copy_object(
-        array('bucket' => $this->bucket, 'filename' => $oldPath),
-        array('bucket' => $this->bucket, 'filename' => $newPath),
-        array('acl' => AmazonS3::ACL_PUBLIC)
-    );
+    if ($isDir) {
+      $response = $this->createDirectory($newPath);
+    } else {
+      $response = $this->s3->copy_object(
+          array('bucket' => $this->bucket, 'filename' => $oldPath),
+          array('bucket' => $this->bucket, 'filename' => $newPath),
+          array('acl' => AmazonS3::ACL_PUBLIC)
+      );
+    }
 
-    if ($copyResponse->isOK()) {
-      $deleteResponse = $this->s3->delete_object($this->bucket, $oldPath);
+    if ($response->isOK()) {
+      $this->s3->delete_object($this->bucket, $oldPath);
     }
 
     return array(
@@ -505,27 +502,13 @@ class FilemanagerS3 extends Filemanager {
    * @return  string
    */
   protected function buildFullPath() {
-    if (in_array($_POST['mode'], array('add'))) {
+    // uploading has a slightly different API
+    if (isset($_POST['mode']) && in_array($_POST['mode'], array('add'))) {
       return $this->sanitizePath($this->post['currentpath']);
     }
 
-    // nasty: $this->get['mode'] is not availabile, and we get a full path
-    // instead of a directory and file so no need to prepend the base directory
-    if (in_array($_GET['mode'], array('addfolder', 'delete', 'download', 'getfolder', 'getinfo'))) {
-      if ($this->sanitizePath($this->get['path'])) {
-        return $this->sanitizePath($this->get['path']);
-      }
-    }
-
-    $rootPath    = $this->buildRootPath();
-    $requestPath = $_SERVER['REQUEST_METHOD'] === 'POST'
-                 ? $this->sanitizePath($this->post['currentpath'])
-                 : $this->sanitizePath($this->get['path']);
-
-    // stitch together prefix + requested path
-    $fullPath = join('/', array_filter(array($rootPath, $requestPath)));
-
-    return $fullPath;
+    // essentially everything else
+    return $this->sanitizePath($this->get['path']) ?: $this->buildRootPath();
   }
 
   /**

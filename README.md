@@ -60,6 +60,72 @@ Installing
 Configuration
 -------------
 
+**Copy configuration template**
+
+    $   cp filemanager.config.js.default filemanager.config.js
+
+**filemanager.config.js**
+
+This is the core filemanager's configuration; however, the s3 plug-in requires these items to be set correctly:
+
+-   showFullPath
+-   fileRoot
+-   relPath
+
+Sample Configuration (short)
+
+    var culture              = 'en',
+        defaultViewMode      = 'grid',
+        autoload             = true,
+        showFullPath         = false,
+        displayPathDecorator = function(path) { return path.replace(/^\d+\/images/i, ''); },
+        browseOnly           = false,
+        lang                 = 'php',
+        am                   = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1),
+        fileRoot             = '/',
+        relPath              = '//xxxxxxxxxxxxxx.cloudfront.net/',
+        showThumbs           = true,
+        imagesExt            = ['jpg', 'jpeg', 'gif', 'png'];
+
+Sample Configuration (long)
+
+    // Set culture to display localized messages
+    var culture = 'en';
+
+    // Set default view mode : 'grid' or 'list'
+    var defaultViewMode = 'grid';
+
+    // Autoload text in GUI
+    // If set to false, set values manually into the HTML file
+    var autoload = true;
+
+    // Display full path - default : false
+    var showFullPath         = false;
+
+    // Browse only - default : false
+    var browseOnly = false;
+
+    // Set this to the server side language you wish to use.
+    var lang = 'php';
+
+    var am = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1);
+
+    // Set this to the directory you wish to manage.
+    var fileRoot = '/';
+
+    // Path to the manage directory on the HTTP server
+    var relPath = '//d40rlfik0wts0.cloudfront.net/';
+
+    // Show image previews in grid views?
+    var showThumbs = true;
+
+    // Allowed image extensions when type is 'image'
+    var imagesExt = ['jpg', 'jpeg', 'gif', 'png'];
+
+**Copy configuration template**
+
+    $   cp filemanager.s3.config.php.dist filemanager.s3.config.php
+
 **filemanager.s3.config.php**
 
 Minimal configuration items you should be concerned with:
@@ -178,50 +244,6 @@ Sample Configuration
      */
     ini_set('log_errors', true);
     ini_set('error_log',  'syslog');
-
-
-**filemanager.config.js**
-
-This is the core filemanager's configuration; however, the s3 plug-in requires these items to be set correctly:
-
--   showFullPath
--   fileRoot
--   relPath
-
-Sample Configuration
-
-    // Set culture to display localized messages
-    var culture = 'en';
-
-    // Set default view mode : 'grid' or 'list'
-    var defaultViewMode = 'grid';
-
-    // Autoload text in GUI
-    // If set to false, set values manually into the HTML file
-    var autoload = true;
-
-    // Display full path - default : false
-    var showFullPath         = false;
-
-    // Browse only - default : false
-    var browseOnly = false;
-
-    // Set this to the server side language you wish to use.
-    var lang = 'php';
-
-    var am = document.location.pathname.substring(1, document.location.pathname.lastIndexOf('/') + 1);
-
-    // Set this to the directory you wish to manage.
-    var fileRoot = '/';
-
-    // Path to the manage directory on the HTTP server
-    var relPath = '//d40rlfik0wts0.cloudfront.net/';
-
-    // Show image previews in grid views?
-    var showThumbs = true;
-
-    // Allowed image extensions when type is 'image'
-    var imagesExt = ['jpg', 'jpeg', 'gif', 'png'];
 
 
 Changelog
