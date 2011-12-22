@@ -224,8 +224,6 @@ class FilemanagerS3 extends Filemanager {
   /**
    * add/upload a file to the current path
    *
-   * $this->buildFullPath() = upload directory
-   *
    * @return  void
    */
   public function add() {
@@ -521,11 +519,8 @@ class FilemanagerS3 extends Filemanager {
    * @return  boolean
    */
   protected function debug($message) {
-    // bail-out if we are not in debug mode
-    if (!$this->debug) { return; }
-
-    // write to the configured error log
-    return error_log($message, 0);
+    // write to the configured error log only if we are in debug mode
+    return $this->debug ? error_log($message, 0) : null;
   }
 
   /**
