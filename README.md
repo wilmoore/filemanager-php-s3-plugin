@@ -32,6 +32,11 @@ Limitations
 -----------
 
 -   deleting/renaming a non-empty folder is not currently supported.
+-   if you've traversed into a directory via the left-hand tree-navigation, then you close the
+    the current node, going into a child directory of the currently selected node via the
+    right-hand pane does _NOT_ trigger the left-hand tree-navigation to reflect the CWD. The
+    correct behavior would be for the tree to locate the current working directory node and open
+    it.
 
 
 Requirements
