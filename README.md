@@ -5,7 +5,7 @@ Core Five FileManager PHP connector S3 plugin
 **Author**:         Wil Moore III   
 **Contributors**:   See Contributors section below  
 **License**:        MIT License     
-**Latest Version**: 0.0.3       
+**Latest Version**: 0.0.4       
 **First Released**: December 20th 2011 
 
 
@@ -252,6 +252,8 @@ Sample Configuration
 
 Changelog
 ---------
+
+-   **2011-12-22**: Released version 0.0.4 which removes the configuration file from the repo and ignores it (so we never clobber your custom configuration).
 
 -   **2011-12-22**: Released version 0.0.3 which includes better support for renaming directories, clean-up of buildFullPath(), and clean-up of debug().
 
