@@ -1,0 +1,14 @@
+filemanager.s3.config.php
+*.sw?
+.~
+*.DS_Store
+*.class
+*.cvs
+*.idea
+*.lock
+*.out
+*.pyc
+*.sqlite3
+*.svn
+thumbs.db
+tmp/*
