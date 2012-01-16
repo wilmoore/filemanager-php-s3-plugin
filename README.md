@@ -1,5 +1,6 @@
 Core Five FileManager PHP connector S3 plugin
 =============================================
+ "!http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin.png!":http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin
 
 **Homepage**:       [http://github.com/Net-Results/filemanager-php-s3-plugin](http://github.com/Net-Results/filemanager-php-s3-plugin)  
 **Author**:         Wil Moore III   
@@ -20,9 +21,9 @@ Features
 -------------
 
 **1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching.   
-**2. CloudFront**: Use any CloudFront distribution name as your custom domain for serving the managed file.   
-**3. Configurable**: Configure just about any aspect of the plug-in including caching and custom domain.   
-**4. Folder Support**: Supports s3 pseudo folders to similate directory browsing.   
+**2. CloudFront**: Server the managed files via a configurable CloudFront distribution name.   
+**3. Configurable**: Configure most aspects of the plug-in including caching and custom domain.   
+**4. Folder Support**: Supports s3 pseudo folders to simulate real directory browsing.   
 **5. Debugging**: Set debug mode to (true) which disables caching and provides useful debug messages.   
 **6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
@@ -30,6 +31,7 @@ Features
 Limitations
 -----------
 
+-   for a directory to be depicted, an empty file with a trailing "/" must be created as the name of the directory.
 -   deleting/renaming a non-empty folder is not currently supported.
 -   if you've traversed into a directory via the left-hand tree-navigation, then you close the
     the current node, going into a child directory of the currently selected node via the
