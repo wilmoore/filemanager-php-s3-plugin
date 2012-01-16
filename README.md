@@ -269,5 +269,4 @@ Contributors
 Special thanks to the following people for submitting patches:
 
 * no patches submitted ATM
-"!http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin.png!":http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin
 
