@@ -29,8 +29,8 @@ Features
 **6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
 
-Limitations
------------
+Limitations (pull-requests appreciated)
+---------------------------------------
 
 -   for a directory to be depicted, an empty file with a trailing "/" must be created as the name of the directory.
 -   deleting/renaming a non-empty folder is not currently supported.
