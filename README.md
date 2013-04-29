@@ -3,7 +3,7 @@
 An AWS s3 plugin for the Core Five FileManager. This plug-in works with the PHP connector providing the ability to
 manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Filemanager.
 
-### Features
+## Features
 
 **1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching.   
 **2. CloudFront**: Server the managed files via a configurable CloudFront distribution name.   
@@ -13,7 +13,7 @@ manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Fi
 **6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
 
-### Limitations (pull-requests appreciated)
+## Limitations (pull-requests appreciated)
 
 -   for a directory to be depicted, an empty file with a trailing "/" must be created as the name of the directory.
 -   deleting/renaming a non-empty folder is not currently supported.
@@ -24,13 +24,13 @@ manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Fi
     it.
 
 
-### Requirements
+## Requirements
 
 *   [required] PHP 5.3+
 *   [required] Core Five FileManager (http://labs.corefive.com/projects/filemanager/)
 
 
-### Installing
+## Installing
 
 **(zip|tar)ball**
 
@@ -45,7 +45,7 @@ manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Fi
     $   git submodule add https://github.com/Net-Results/filemanager-php-s3-plugin.git {path/to/filemanager}/connectors/php/plugins/s3
 
 
-### Configuration
+## Configuration
 
 **Copy configuration template**
 
@@ -233,7 +233,7 @@ Sample Configuration
     ini_set('error_log',  'syslog');
 
 
-### Changelog
+## Changelog
 
 -   **2011-12-22**: Released version 0.0.4 which removes the configuration file from the repo and ignores it (so we never clobber your custom configuration).
 
@@ -242,7 +242,7 @@ Sample Configuration
 -   **2011-12-20**: Released initial version 0.0.1.
 
 
-### Contributors
+## Contributors
 
 Special thanks to the following people for submitting patches:
 
