@@ -1,25 +1,9 @@
-Core Five FileManager PHP connector S3 plugin
-=============================================
-
-[<img alt ='' src='http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin.png'/>](http://stillmaintained.com/Net-Results/filemanager-php-s3-plugin)
-
-**Homepage**:       [http://github.com/Net-Results/filemanager-php-s3-plugin](http://github.com/Net-Results/filemanager-php-s3-plugin)  
-**Author**:         Wil Moore III   
-**Contributors**:   See Contributors section below  
-**License**:        MIT License     
-**Latest Version**: 0.0.4       
-**First Released**: December 20th 2011 
-
-
-Summary
--------
+# Core Five FileManager PHP connector S3 plugin
 
 An AWS s3 plugin for the Core Five FileManager. This plug-in works with the PHP connector providing the ability to
 manage files in an Amazon s3 bucket. For use with: https://github.com/simogeo/Filemanager.
 
-
-Features
--------------
+### Features
 
 **1. Caching**: Choose apc, xcache, memcache, memcached, database, or file caching.   
 **2. CloudFront**: Server the managed files via a configurable CloudFront distribution name.   
@@ -29,8 +13,7 @@ Features
 **6. Dynamic Directories**: With a single line of configuration, you can provide users with a custom (semi-private) directory within a single bucket.   
 
 
-Limitations (pull-requests appreciated)
----------------------------------------
+### Limitations (pull-requests appreciated)
 
 -   for a directory to be depicted, an empty file with a trailing "/" must be created as the name of the directory.
 -   deleting/renaming a non-empty folder is not currently supported.
@@ -41,15 +24,13 @@ Limitations (pull-requests appreciated)
     it.
 
 
-Requirements
--------------
+### Requirements
 
 *   [required] PHP 5.3+
 *   [required] Core Five FileManager (http://labs.corefive.com/projects/filemanager/)
 
 
-Installing
--------------
+### Installing
 
 **(zip|tar)ball**
 
@@ -64,8 +45,7 @@ Installing
     $   git submodule add https://github.com/Net-Results/filemanager-php-s3-plugin.git {path/to/filemanager}/connectors/php/plugins/s3
 
 
-Configuration
--------------
+### Configuration
 
 **Copy configuration template**
 
@@ -253,8 +233,7 @@ Sample Configuration
     ini_set('error_log',  'syslog');
 
 
-Changelog
----------
+### Changelog
 
 -   **2011-12-22**: Released version 0.0.4 which removes the configuration file from the repo and ignores it (so we never clobber your custom configuration).
 
@@ -263,8 +242,7 @@ Changelog
 -   **2011-12-20**: Released initial version 0.0.1.
 
 
-Contributors
-------------
+### Contributors
 
 Special thanks to the following people for submitting patches:
 
