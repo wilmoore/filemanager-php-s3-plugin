@@ -5,7 +5,7 @@
  * You may over-ride any parameters set by the filemanager.config.php file here
  *
  * @license MIT License
- * @author	Wil Moore III <wmoore@net-results.com>
+ * @author  Wil Moore III <wil.moore@wilmoore.com>
  */
 
 /*******************************************************************************
@@ -50,7 +50,7 @@ $config['s3-bucket']          = 'filesmanager';
  *  1)  cloudfront distribution domain (i.e. {distribution-name}.cloudfront.net)
  *  2)  s3 origin domain (i.e. s3.amazonaws.com)
  */
-$config['s3-public-domain']   = 'd40rlfik0wts0.cloudfront.net';
+$config['s3-public-domain']   = '*.cloudfront.net';
 
 /*******************************************************************************
  * Cache

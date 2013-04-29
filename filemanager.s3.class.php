@@ -5,7 +5,7 @@
  * utilizes the Amazon Web Services S3 API for PHP
  *
  * @license MIT License
- * @author	Wil Moore III <wmoore@net-results.com>
+ * @author  Wil Moore III <wil.moore@wilmoore.com>
  */
 
 require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
@@ -16,7 +16,7 @@ require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
  * utilizes the Amazon Web Services S3 API for PHP
  *
  * @license MIT License
- * @author	Wil Moore III <wmoore@net-results.com>
+ * @author  Wil Moore III <wil.moore@wilmoore.com>
  *
  * @todo    future improvements:
  *          1 - pub/sub events
@@ -25,9 +25,9 @@ require_once realpath(__DIR__ . '/AWSSDKforPHP/sdk-1.5.0/sdk.class.php');
  */
 class FilemanagerS3 extends Filemanager {
 
-/*******************************************************************************
- * Constants
- ******************************************************************************/
+  /*******************************************************************************
+   * Constants
+   ******************************************************************************/
 
   const FILE_TYPE_DIR         = 'dir';
   const FILE_TYPE_IMG         = 'img';
@@ -53,7 +53,7 @@ class FilemanagerS3 extends Filemanager {
 
   /**
    * public domain
-   * 
+   *
    * @var string
    */
   protected $domain           = null;
@@ -142,16 +142,16 @@ class FilemanagerS3 extends Filemanager {
    *
    * @todo  throw error if keys are not set
    */
-	public function __construct($config) {
-		parent::__construct($config);
+  public function __construct($config) {
+    parent::__construct($config);
 
     // Configure instance
     $this->configure($this->config);
-	}
+  }
 
-/*******************************************************************************
- * Configuration
- ******************************************************************************/
+  /*******************************************************************************
+   * Configuration
+   ******************************************************************************/
 
   /**
    * Recieves all configuration values and sets up this instance
@@ -163,43 +163,43 @@ class FilemanagerS3 extends Filemanager {
   protected function configure($config) {
     // Configurable instance variables (if not set, use the instance default)
     $this->debug          = isset($config['enable-debug-mode'])
-                          ? $config['enable-debug-mode']
-                          : $this->debug;
+      ? $config['enable-debug-mode']
+      : $this->debug;
 
     $this->folderIcon     = $config['icons']['path'] . $config['icons']['directory'];
 
     $this->bucket         = isset($config['s3-bucket'])
-                          ? $config['s3-bucket']
-                          : $this->bucket;
+      ? $config['s3-bucket']
+      : $this->bucket;
 
     $this->rootDirectory  = isset($config['doc_root'])
-                          ? trim($config['doc_root'], '/ ')
-                          : $this->rootDirectory;
+      ? trim($config['doc_root'], '/ ')
+      : $this->rootDirectory;
 
     $this->createRootDir  = isset($config['create-root-dir'])
-                          ? $config['create-root-dir']
-                          : $this->createRootDir;
+      ? $config['create-root-dir']
+      : $this->createRootDir;
 
     $this->domain         = isset($config['s3-public-domain'])
-                          ? $config['s3-public-domain']
-                          : $this->domain;
+      ? $config['s3-public-domain']
+      : $this->domain;
 
     $this->cacheScheme    = isset($config['aws-cache-scheme'])
-                          ? $config['aws-cache-scheme']
-                          : $this->cacheScheme;
+      ? $config['aws-cache-scheme']
+      : $this->cacheScheme;
 
     $this->cacheExpire    = isset($config['aws-cache-expirein'])
-                          ? $config['aws-cache-expirein']
-                          : $this->cacheExpire;
+      ? $config['aws-cache-expirein']
+      : $this->cacheExpire;
 
     $this->uploadMaxMb    = isset($config['upload']['size'])
-                          ? (int) $config['upload']['size']
-                          : $this->uploadMaxMb;
+      ? (int) $config['upload']['size']
+      : $this->uploadMaxMb;
 
     // if we are in debug mode, auto-expire cache
     $this->cacheExpire    = $this->debug
-                          ? self::DEFAULT_CACHE_EXPIRE
-                          : $this->cacheExpire;
+      ? self::DEFAULT_CACHE_EXPIRE
+      : $this->cacheExpire;
 
     // set global static credentials
     CFCredentials::set(array(
@@ -208,7 +208,7 @@ class FilemanagerS3 extends Filemanager {
         'secret'                => $config['aws-secret-key'],
         'default_cache_config'  => $this->cacheScheme,
         'certificate_authority' => false
-    )));
+      )));
 
     // Instantiate the AmazonS3 class (we should probably be injecting this)
     $this->s3 = new AmazonS3();
@@ -217,9 +217,9 @@ class FilemanagerS3 extends Filemanager {
     $this->s3->enable_debug_mode($this->debug);
   }
 
-/*******************************************************************************
- * API
- ******************************************************************************/
+  /*******************************************************************************
+   * API
+   ******************************************************************************/
 
   /**
    * add/upload a file to the current path
@@ -236,43 +236,43 @@ class FilemanagerS3 extends Filemanager {
     $this->debug(sprintf('Max Upload Size: %dMB', $this->uploadMaxMb));
 
     // check for uploaded file
-		if(empty($_FILES['newfile']['tmp_name']) || !is_uploaded_file($_FILES['newfile']['tmp_name'])) {
-			$this->error(sprintf($this->lang('INVALID_FILE_UPLOAD')), true);
-		}
+    if(empty($_FILES['newfile']['tmp_name']) || !is_uploaded_file($_FILES['newfile']['tmp_name'])) {
+      $this->error(sprintf($this->lang('INVALID_FILE_UPLOAD')), true);
+    }
 
-		if(!$this->isUploadValidSize()) {
-			$this->error(sprintf($this->lang('UPLOAD_FILES_SMALLER_THAN'), $this->uploadMaxMb . 'Mb'), true);
-		}
+    if(!$this->isUploadValidSize()) {
+      $this->error(sprintf($this->lang('UPLOAD_FILES_SMALLER_THAN'), $this->uploadMaxMb . 'Mb'), true);
+    }
 
-		if (!$this->isUploadValidType($_FILES['newfile']['tmp_name'])) {
-				$this->error(sprintf($this->lang('UPLOAD_IMAGES_TYPE_JPEG_GIF_PNG')), true);
-		}
+    if (!$this->isUploadValidType($_FILES['newfile']['tmp_name'])) {
+      $this->error(sprintf($this->lang('UPLOAD_IMAGES_TYPE_JPEG_GIF_PNG')), true);
+    }
 
     // unless we are in overwrite mode, we need a unique file name
-		if (empty($this->config['upload']['overwrite'])) {
+    if (empty($this->config['upload']['overwrite'])) {
       $this->uniqueFile($this->buildFullPath(), $_FILES['newfile']['name']);
     }
 
     // write new file to s3
     $newFile  = sprintf('%s/%s', $this->buildFullPath(), $_FILES['newfile']['name']);
     $response = $this->s3->create_object($this->bucket, $newFile, array(
-        'fileUpload' => $_FILES['newfile']['tmp_name'],
-        'acl'        => AmazonS3::ACL_PUBLIC,
-        'contentType'=> $_FILES['newfile']['type']
+      'fileUpload' => $_FILES['newfile']['tmp_name'],
+      'acl'        => AmazonS3::ACL_PUBLIC,
+      'contentType'=> $_FILES['newfile']['type']
     ));
 
     if (!$response->isOK()) {
-			$this->error(sprintf($this->lang('INVALID_FILE_UPLOAD')), true);
+      $this->error(sprintf($this->lang('INVALID_FILE_UPLOAD')), true);
     }
 
-		$return = array(
+    $return = array(
       'Path'  => $this->buildFullPath(),
-			'Name'  => $_FILES['newfile']['name'],
-			'Error' => '',
-			'Code'  => 0
+      'Name'  => $_FILES['newfile']['name'],
+      'Error' => '',
+      'Code'  => 0
     );
 
-		exit(sprintf('<textarea>%s</textarea>', json_encode($return)));
+    exit(sprintf('<textarea>%s</textarea>', json_encode($return)));
   }
 
   /**
@@ -323,12 +323,12 @@ class FilemanagerS3 extends Filemanager {
     $isDir    = $this->isDir($this->metadata($this->buildFullPath() . '/'));
 
     $Path     = $isDir
-              ? "{$this->buildFullPath()}/"
-              : $this->buildFullPath();
+      ? "{$this->buildFullPath()}/"
+      : $this->buildFullPath();
 
     $contents = $isDir
-              ? $this->s3->get_object_list($this->bucket, array('prefix' => $Path))
-              : array();
+      ? $this->s3->get_object_list($this->bucket, array('prefix' => $Path))
+      : array();
 
     // NOTE: we do this instead of isDir as we only care if there are files under this prefix
     if (count($contents) > 1) {
@@ -374,7 +374,7 @@ class FilemanagerS3 extends Filemanager {
    *
    * @todo   need to respect files that are not public by scrubbing them from the list
    */
-	public function getfolder() {
+  public function getfolder() {
     // the path prefix is the full requested path (this should equate to a folder)
     $directory = $this->sanitizePath($this->buildFullPath()) . '/';
     $metadata  = $this->metadata($directory);
@@ -411,7 +411,7 @@ class FilemanagerS3 extends Filemanager {
     }
 
     return $fileList;
-	}
+  }
 
   /**
    * retrieve properties of requested file as a hash
@@ -437,8 +437,8 @@ class FilemanagerS3 extends Filemanager {
     $oldPath .= ($isDir) ? '/' : '';
 
     $contents = ($isDir)
-              ? $this->s3->get_object_list($this->bucket, array('prefix' => $oldPath))
-              : array();
+      ? $this->s3->get_object_list($this->bucket, array('prefix' => $oldPath))
+      : array();
 
     // NOTE: we do this instead of isDir as we only care if there are files under this prefix
     if (count($contents) > 1) {
@@ -455,9 +455,9 @@ class FilemanagerS3 extends Filemanager {
       $response = $this->createDirectory($newPath);
     } else {
       $response = $this->s3->copy_object(
-          array('bucket' => $this->bucket, 'filename' => $oldPath),
-          array('bucket' => $this->bucket, 'filename' => $newPath),
-          array('acl' => AmazonS3::ACL_PUBLIC)
+        array('bucket' => $this->bucket, 'filename' => $oldPath),
+        array('bucket' => $this->bucket, 'filename' => $newPath),
+        array('acl' => AmazonS3::ACL_PUBLIC)
       );
     }
 
@@ -466,18 +466,18 @@ class FilemanagerS3 extends Filemanager {
     }
 
     return array(
-			'Error'    => '',
-			'Code'     => 0,
-			'Old Path' => $oldPath,
-			'Old Name' => $baseName,
-			'New Path' => $newPath,
-			'New Name' => $newFile
+      'Error'    => '',
+      'Code'     => 0,
+      'Old Path' => $oldPath,
+      'Old Name' => $baseName,
+      'New Path' => $newPath,
+      'New Name' => $newFile
     );
   }
 
-/*******************************************************************************
- * Utility
- ******************************************************************************/
+  /*******************************************************************************
+   * Utility
+   ******************************************************************************/
 
   /**
    * Builds a path prefix based on configuration
@@ -587,7 +587,7 @@ class FilemanagerS3 extends Filemanager {
     // short-circuit if file doesn't exist
     if (!$this->fileExists($metadata)) { return false; }
 
-    $contentType = $metadata['ContentType'];
+      $contentType = $metadata['ContentType'];
     $fileSize    = (int) $metadata['Size'];
 
     return ($fileSize === 0) && ($contentType === 'binary/octet-stream');
@@ -695,24 +695,24 @@ class FilemanagerS3 extends Filemanager {
    * @param string  $fileName
    */
   protected function uniqueFile($prefix, $fileName) {
-      // request a list of objects filtered by prefix
-			$list = $this->s3->get_object_list($this->bucket, compact('prefix'));
-      $path = join('/', array($prefix, $fileName));
+    // request a list of objects filtered by prefix
+    $list = $this->s3->get_object_list($this->bucket, compact('prefix'));
+    $path = join('/', array($prefix, $fileName));
 
-			$i = 0;
-			while (in_array($path, $list)) {
-				$i++;
-				$parts   = explode('.', $fileName);
-				$ext     = array_pop($parts);
-				$parts   = array_diff($parts, array("copy{$i}", "copy".($i-1)));
-				$parts[] = "copy{$i}";
-				$parts[] = $ext;
-        $path    = join('/', array($prefix, implode('.', $parts)));
-      }
+    $i = 0;
+    while (in_array($path, $list)) {
+      $i++;
+      $parts   = explode('.', $fileName);
+      $ext     = array_pop($parts);
+      $parts   = array_diff($parts, array("copy{$i}", "copy".($i-1)));
+      $parts[] = "copy{$i}";
+      $parts[] = $ext;
+      $path    = join('/', array($prefix, implode('.', $parts)));
+    }
 
-      if (isset($parts)) {
-        $_FILES['newfile']['name'] = implode('.', $parts);
-      }
+    if (isset($parts)) {
+      $_FILES['newfile']['name'] = implode('.', $parts);
+    }
   }
 
   /**
